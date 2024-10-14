@@ -1,3 +1,6 @@
+We encourage you to join our EMOD Slack Community by filling out this form https://forms.office.com/r/sjncGvBjvZ
+
+============
 EMOD - V2.22
 ============
 Epidemiological MODeling software (EMOD), is an agent-based model (ABM) that simulates the simultaneous interactions of agents in an effort to recreate complex phenomena. Each agent (such as a human or vector) can be assigned a variety of “properties” (for example, age, gender, etc.), and their behavior and interactions with one another are determined by using decision rules. These models have strong predictive power and are able to leverage spatial and temporal dynamics.
