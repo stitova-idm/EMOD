@@ -43,6 +43,23 @@ namespace Kernel
             // GetRelativeBitingRate() = demographics-based-risk::relative_biting_rate * m_age_dependent_biting_risk
             float relative_risk = p_ind_vector->GetRelativeBitingRate() * ihec->GetIndividualHumanConst()->GetAcquisitionImmunity();
 
+            //GeneticProbability gp_acqmod = 1.0f; 
+            //switch(transmission_route)
+            //{
+            //    case TransmissionRoute::TRANSMISSIONROUTE_VECTOR_TO_HUMAN_INDOOR:
+            //        gp_acqmod = p_ind_vector->GetVectorInterventionEffects()->GetblockIndoorVectorAcquire();
+            //        break;
+
+            //    case TransmissionRoute::TRANSMISSIONROUTE_VECTOR_TO_HUMAN_OUTDOOR:
+            //        gp_acqmod = p_ind_vector->GetVectorInterventionEffects()->GetblockOutdoorVectorAcquire();
+            //        break;
+
+            //    default:
+            //        throw BadEnumInSwitchStatementException( __FILE__, __LINE__, __FUNCTION__, "transmission_route", transmission_route, TransmissionRoute::pairs::lookup_key( transmission_route ) );
+            //}
+
+            //relative_risk *= gp_acqmod.GetSum();
+
             IMalariaHumanInfectable* imhi = nullptr;
             if ( s_OK !=  ihec->QueryInterface(GET_IID(IMalariaHumanInfectable), (void**)&imhi) )
             {

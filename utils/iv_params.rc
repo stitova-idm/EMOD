@@ -194,6 +194,7 @@
 #define IE_EIR_Type_DESC_TEXT "Specifies the frequency of the EIR read-in: options are 'MONTHLY' (default) or 'DAILY'."
 #define IE_Monthly_EIR_DESC_TEXT "An array of exactly 12 elements that contain an entomological inoculation rate (EIR) for each month. Each value should be between 0 and 1000, there is no default. Note that the 'current month' is based on the time since the intervention was distributed, and there will be a 12-month repeating pattern from the day it's distributed. Used when **EIR_Type** is set to 'MONTHLY'."
 #define IE_Scaling_Factor_DESC_TEXT "A modifier that is multiplied by the EIR determined for the current day."
+#define IE_Indoor_EIR_DESC_TEXT "Portion of infectious bites delivered indoors. This mimics mosquitoes biting indoors and outdoors and will be impacted by the indoor and outdoor vector interventions if there are any."
 #define IFCP_Broadcast_Event_DESC_TEXT "The event that is immediately broadcast to the partner. Required if **Event_or_Config** is set to Event. See :doc:`parameter-campaign-event-list` for possible built-in values, or create custom values using **Custom_Individual_Events**."
 #define IFCP_Intervention_Config_DESC_TEXT "The intervention definition that is immediately distributed to the partner. Required if **Event_Or_Config** is set to Config."
 #define IFCP_Maximum_Partners_DESC_TEXT "The maximum number of partners that will receive the intervention. Required when **Prioritize_Partners_By** is not set to NO_PRIORITIZATION."

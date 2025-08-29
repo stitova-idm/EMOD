@@ -41,6 +41,7 @@ namespace Kernel
         EIRType::Enum eir_type;
         std::vector<float> monthly_EIR; // 12 values of EIR by month
         std::vector<float> daily_EIR;
+        float indoor_eir;
         float scaling_factor;
         float today;
     };
