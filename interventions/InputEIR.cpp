@@ -27,7 +27,7 @@ namespace Kernel
     , monthly_EIR()
     , daily_EIR()
     , scaling_factor(1.0f)
-    , indoor_eir(1.0f)
+    , indoor_eir(-1.0f)
     , today(0)
     {
         initSimTypes( 1, "MALARIA_SIM" ); // using sporozoite challenge
@@ -49,8 +49,8 @@ namespace Kernel
         initConfig(        "EIR_Type",        eir_type,        inputJson, MetadataDescriptor::Enum( "EIR_Type", IE_EIR_Type_DESC_TEXT, MDD_ENUM_ARGS( EIRType ) ) );
         initConfigTypeMap( "Monthly_EIR",    &monthly_EIR,     IE_Monthly_EIR_DESC_TEXT,    0.0f, 1000.0f, false, "EIR_Type", "MONTHLY" );
         initConfigTypeMap( "Daily_EIR",      &daily_EIR,       IE_Daily_EIR_DESC_TEXT,      0.0f, 1000.0f, false, "EIR_Type", "DAILY" );
-        initConfigTypeMap( "Scaling_Factor", &scaling_factor,  IE_Scaling_Factor_DESC_TEXT, 0.0f, 10000.0f, 1.0 );
-        initConfigTypeMap( "Portion_EIR_Indoors", &indoor_eir, IE_Indoor_EIR_DESC_TEXT,     0.0f, 1.0f, 1.0 );
+        initConfigTypeMap( "Scaling_Factor", &scaling_factor,  IE_Scaling_Factor_DESC_TEXT, 0.0f, 10000.0f, 1.0f );
+        initConfigTypeMap( "Portion_EIR_Indoors", &indoor_eir, IE_Indoor_EIR_DESC_TEXT,     0.0f, 1.0f, -1.0f );
 
         bool configured = BaseNodeIntervention::Configure( inputJson );
         if( configured && ! JsonConfigurable::_dryrun )
@@ -120,7 +120,7 @@ namespace Kernel
         {
             throw QueryInterfaceException( __FILE__, __LINE__, __FUNCTION__, "iscc", "ISporozoiteChallengeConsumer", "INodeEventContext" );
         }
-        iscc->ChallengeWithInfectiousBites( 1, eir_for_today);
+        iscc->ChallengeWithInfectiousBites( 1, eir_for_today, indoor_eir);
     }
 
     float InputEIR::GetCostPerUnit() const

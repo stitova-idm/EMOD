@@ -26,10 +26,10 @@ namespace Kernel
     {
     }
 
-    void NodeMalariaEventContextHost::ChallengeWithSporozoites(int n_sporozoites, float coverage)
+    void NodeMalariaEventContextHost::ChallengeWithSporozoites(int n_sporozoites, float coverage, float portion_indoors)
     {
         INodeEventContext::individual_visit_function_t sporozoite_challenge_func = 
-            [this, n_sporozoites, coverage](IIndividualHumanEventContext *ihec)
+            [this, n_sporozoites, coverage, portion_indoors](IIndividualHumanEventContext *ihec)
         {
             IIndividualHumanVectorContext* p_ind_vector = nullptr;
             if(s_OK != ihec->QueryInterface(GET_IID(IIndividualHumanVectorContext), (void**)&p_ind_vector))
@@ -43,22 +43,13 @@ namespace Kernel
             // GetRelativeBitingRate() = demographics-based-risk::relative_biting_rate * m_age_dependent_biting_risk
             float relative_risk = p_ind_vector->GetRelativeBitingRate() * ihec->GetIndividualHumanConst()->GetAcquisitionImmunity();
 
-            //GeneticProbability gp_acqmod = 1.0f; 
-            //switch(transmission_route)
-            //{
-            //    case TransmissionRoute::TRANSMISSIONROUTE_VECTOR_TO_HUMAN_INDOOR:
-            //        gp_acqmod = p_ind_vector->GetVectorInterventionEffects()->GetblockIndoorVectorAcquire();
-            //        break;
-
-            //    case TransmissionRoute::TRANSMISSIONROUTE_VECTOR_TO_HUMAN_OUTDOOR:
-            //        gp_acqmod = p_ind_vector->GetVectorInterventionEffects()->GetblockOutdoorVectorAcquire();
-            //        break;
-
-            //    default:
-            //        throw BadEnumInSwitchStatementException( __FILE__, __LINE__, __FUNCTION__, "transmission_route", transmission_route, TransmissionRoute::pairs::lookup_key( transmission_route ) );
-            //}
-
-            //relative_risk *= gp_acqmod.GetSum();
+            if (portion_indoors >= 0.0f) // user can't set to bigger than 1, but -1 for default to indicate not using
+            {
+                // Mixed indoor/outdoor challenge
+                // Adjust relative risk based on intervention effects, ignoring any vector genetics since we are not using vectors here
+                relative_risk *= (portion_indoors * p_ind_vector->GetVectorInterventionEffects()->GetblockIndoorVectorAcquire().GetDefaultValue() +
+                      (1.0f - portion_indoors) * p_ind_vector->GetVectorInterventionEffects()->GetblockOutdoorVectorAcquire().GetDefaultValue() );
+            }
 
             IMalariaHumanInfectable* imhi = nullptr;
             if ( s_OK !=  ihec->QueryInterface(GET_IID(IMalariaHumanInfectable), (void**)&imhi) )
@@ -81,10 +72,10 @@ namespace Kernel
         VisitIndividuals(sporozoite_challenge_func);
     }
 
-    void NodeMalariaEventContextHost::ChallengeWithInfectiousBites(int n_bites, float coverage)
+    void NodeMalariaEventContextHost::ChallengeWithInfectiousBites(int n_bites, float coverage, float portion_indoors)
     {
         INodeEventContext::individual_visit_function_t infectious_bite_challenge_func = 
-            [this, n_bites, coverage](IIndividualHumanEventContext *ihec)
+            [this, n_bites, coverage, portion_indoors](IIndividualHumanEventContext *ihec)
         {
             IIndividualHumanVectorContext* p_ind_vector = nullptr;
             if(s_OK != ihec->QueryInterface(GET_IID(IIndividualHumanVectorContext), (void**)&p_ind_vector))
@@ -97,6 +88,14 @@ namespace Kernel
             // Susceptibility::getModAcquire is not used in Malaria, so remains 1.0
             // GetRelativeBitingRate() = demographics-based-risk::relative_biting_rate * m_age_dependent_biting_risk
             float relative_risk = p_ind_vector->GetRelativeBitingRate() * ihec->GetIndividualHumanConst()->GetAcquisitionImmunity();
+
+            if(portion_indoors >= 0.0f) // user can't set to bigger than 1, but -1 for default to indicate not using
+            {
+                // Mixed indoor/outdoor challenge
+                // Adjust relative risk based on intervention effects, ignoring any vector genetics since we are not using vectors here
+                relative_risk *= ( portion_indoors * p_ind_vector->GetVectorInterventionEffects()->GetblockIndoorVectorAcquire().GetDefaultValue() +
+                                   ( 1.0f - portion_indoors ) * p_ind_vector->GetVectorInterventionEffects()->GetblockOutdoorVectorAcquire().GetDefaultValue() );
+            }
 
             IMalariaHumanInfectable* imhi = nullptr;
             if ( s_OK !=  ihec->QueryInterface(GET_IID(IMalariaHumanInfectable), (void**)&imhi) )

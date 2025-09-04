@@ -3,14 +3,15 @@
     "Events": [
         {
             "Event_Name": "Establish a baseline", 
-            "Start_Day": 0, 
+            "Start_Day": 2, 
             "class": "CampaignEvent", 
             "Event_Coordinator_Config": { 
                 "Number_Repetitions": 1, 
                 "class": "StandardInterventionDistributionEventCoordinator", 
                 "Intervention_Config": {
+                    "Portion_EIR_Indoors": 0.8,
                     "EIR_Type": "MONTHLY",
-                    "Monthly_EIR": [ 0, 0, 1, 5, 1, 0, 0, 0, 0, 0, 0, 0],
+                    "Monthly_EIR": [ 10, 10, 1, 5, 1, 0, 0, 0, 0, 0, 0, 0],
                     "class": "InputEIR"
                 }
             }, 
@@ -18,6 +19,40 @@
                 "class": "NodeSetAll"
             }
         },
+                {
+            "Event_Coordinator_Config": {
+                "Demographic_Coverage": 0.8, 
+                "Intervention_Config": {
+                    "class": "SimpleBednet",
+                    "Cost_To_Consumer": 1, 
+                    "Repelling_Config": {
+                        "class": "WaningEffectConstant",
+                        "Initial_Effect": 1
+                    }, 
+                    "Blocking_Config": {
+                        "Box_Duration": 100, 
+                        "Initial_Effect": 0.7, 
+                        "class": "WaningEffectBox"
+                    }, 
+                    "Killing_Config": {
+                        "Decay_Time_Constant": 200, 
+                        "Initial_Effect": 1, 
+                        "class": "WaningEffectExponential"
+                    }, 
+                    "Usage_Config": {
+                        "class": "WaningEffectConstant",
+                        "Initial_Effect": 1.0
+                    }
+                }, 
+                "Target_Demographic": "Everyone", 
+                "class": "StandardInterventionDistributionEventCoordinator"
+            }, 
+            "Nodeset_Config": {
+                "class": "NodeSetAll"
+            }, 
+            "Start_Day": 1, 
+            "class": "CampaignEvent"
+        }, 
         {
             "Event_Name": "Show different by zeroing out.", 
             "Start_Day": 730, 
