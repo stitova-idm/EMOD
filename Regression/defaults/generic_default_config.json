@@ -11,6 +11,7 @@
             "Climate_Model": "CLIMATE_OFF"
         },
         "DEMOGRAPHICS": {
+            "logLevel_Individual":"VALID",
             "Age_Initialization_Distribution_Type": "DISTRIBUTION_SIMPLE",
             "Birth_Rate_Dependence": "DEMOGRAPHIC_DEP_RATE",
             "Birth_Rate_Time_Dependence": "NONE",
