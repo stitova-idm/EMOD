@@ -427,7 +427,7 @@ namespace Kernel
         IndividualHuman *newhuman = _new_ IndividualHuman(id, MCweight, init_age, gender);
 
         newhuman->SetContextTo(context);
-        LOG_DEBUG_F( "Created human with age=%f\n", newhuman->m_age );
+        LOG_VALID_F( "Created human with age=%f\n", newhuman->m_age );
 
         return newhuman;
     }
@@ -618,7 +618,7 @@ namespace Kernel
 
     void IndividualHuman::Update(float currenttime, float dt)
     {
-        LOG_VALID_F( "%s\n", __FUNCTION__ );
+        LOG_DEBUG_F( "%s\n", __FUNCTION__ );
         float infection_timestep =  IndividualHumanConfig::infection_timestep;
         int numsteps =  IndividualHumanConfig::infection_updates_per_tstep;
 
@@ -762,7 +762,7 @@ namespace Kernel
                         const std::string& value = kv.GetValueAsString();
                         propertyString += key + ":" + value + " ";
                     }
-                    LOG_VALID_F( "NodeID = %d human of age %f got new infection %s .\n",
+                    LOG_DEBUG_F( "NodeID = %d human of age %f got new infection %s .\n",
                                  int( GetNodeEventContext()->GetExternalId() ),
                                  float( GetAge() / 365.0 ),
                                  propertyString.c_str() );
@@ -776,7 +776,7 @@ namespace Kernel
         float age_was = m_age;
 
         m_age += dt;
-
+        LOG_VALID_F( "UpdateAge: dt = %f , from %f to %f .\n", dt, age_was, m_age );
         // broadcast an event when a person passes their birthday
         float age_years = m_age / DAYSPERYEAR;
         float years = float( int( age_years ) );
@@ -1185,11 +1185,11 @@ namespace Kernel
                 acquire = true;
             }
         }
-        LOG_VALID_F( "acquire = %d.\n", acquire );
+        LOG_DEBUG_F( "acquire = %d.\n", acquire );
 
         if( acquire ) 
         {
-            LOG_VALID_F( "Individual %d is acquiring a new infection on route %s.\n", GetSuid().data, TransmissionRoute::pairs::lookup_key( transmission_route ) );
+            LOG_DEBUG_F( "Individual %d is acquiring a new infection on route %s.\n", GetSuid().data, TransmissionRoute::pairs::lookup_key( transmission_route ) );
             StrainIdentity strain;
             cp->ResolveInfectingStrain( &strain );
             AcquireNewInfection( &strain );
@@ -1238,7 +1238,7 @@ namespace Kernel
         }
         float raw_inf = infectiousness;
         infectiousness *= susceptibility->getModTransmit() * interventions->GetInterventionReducedTransmit();
-        LOG_VALID_F( "Infectiousness for individual %d = %f (raw=%f, immunity modifier=%f, intervention modifier=%f.\n", 
+        LOG_DEBUG_F( "Infectiousness for individual %d = %f (raw=%f, immunity modifier=%f, intervention modifier=%f.\n",
                      GetSuid().data, infectiousness, raw_inf, susceptibility->getModTransmit(), interventions->GetInterventionReducedTransmit() );
     }
 
