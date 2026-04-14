@@ -68,7 +68,11 @@ class Monitor(threading.Thread):
             # Call Eradication.exe through mpiexec to avoid Windows security warnings (see GitHub issue #1439)
             cmd = None
             if "Eradication" in self.config_json["bin_path"]:
-                cmd = ['mpiexec', "--oversubscribe", "-n", str(numcores), self.config_json["bin_path"], "-C", "config.json" ]
+                mpi_cmd = ['mpiexec']
+                if sys.platform != 'win32':
+                    mpi_cmd.append("--oversubscribe")
+                mpi_cmd.extend(["-n", str(numcores), self.config_json["bin_path"], "-C", "config.json"])
+                cmd = mpi_cmd
             else:
                 cmd = self.config_json["bin_path"].split()
                 if self.scenario_type != 'pymod':

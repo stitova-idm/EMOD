@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <set>
 #include "suids.hpp"
 #include "IdmApi.h"
@@ -184,6 +185,42 @@ namespace Kernel
 
         template <typename T, typename U>
         IArchive& operator & (std::map<T, U>& mapping)
+        {
+            size_t count = this->IsWriter() ? mapping.size() : -1;
+
+            this->startArray(count);
+            if (this->IsWriter())
+            {
+                for (auto& entry : mapping)
+                {
+                    T key   = entry.first;
+                    U value = entry.second;
+                    startObject();
+                        labelElement("key"  ) & key;
+                        labelElement("value") & value;
+                    endObject();
+                }
+            }
+            else
+            {
+                for (size_t i = 0; i < count; ++i)
+                {
+                    T key;
+                    U value;
+                    startObject();
+                        labelElement("key"  ) & key;
+                        labelElement("value") & value;
+                    endObject();
+                    mapping[key] = value;
+                }
+            }
+            this->endArray();
+
+            return *this;
+        }
+
+        template <typename T, typename U>
+        IArchive& operator & (std::unordered_map<T, U>& mapping)
         {
             size_t count = this->IsWriter() ? mapping.size() : -1;
 

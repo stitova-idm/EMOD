@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <unordered_map>
 #include "Configure.h"
 #include "ParasiteGenome.h"
 
@@ -197,8 +198,8 @@ namespace Kernel
 
         int32_t m_NumBasePairs;
 
-        std::map<int64_t,ParasiteGenomeInner*> m_ParasiteGenomeMap;
-        std::map<int64_t, uint32_t> m_HashToGenomeID;
+        std::unordered_map<int64_t,ParasiteGenomeInner*> m_ParasiteGenomeMap;
+        std::unordered_map<int64_t, uint32_t> m_HashToGenomeID;
         suids::distributed_generator m_GenomeIdGenerator;
     };
 }
