@@ -113,7 +113,7 @@ bool SimpleLogger::CheckLogLevel( Logger::tLevel log_level, const char* module )
     return true;
 }
 
-// A log_level for this module is in the map (intialized at init time), or use the system log level.
+// A log_level for this module is in the map (initialized at init time), or use the system log level.
 // Either way, if the requested level is >= the setting (in terms of criticality), log it.
 void SimpleLogger::Log( Logger::tLevel log_level, const char* module, const char* msg, ...)
 {

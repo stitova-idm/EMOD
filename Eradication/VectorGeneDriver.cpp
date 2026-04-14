@@ -685,8 +685,8 @@ namespace Kernel
         GeneToTraitModifier* p_gttm = new GeneToTraitModifier( VectorTrait::ADJUST_FERTILE_EGGS,
                                                                bit_mask,
                                                                possible_genomes,
-                                                               std::vector<int64_t>(),
-                                                               std::vector<int64_t>(),
+                                                               std::vector<uint64_t>(),
+                                                               std::vector<uint64_t>(),
                                                                rShreddingAlleles.GetShreddingSurvivingFraction() );
         m_pTraitModifiers->AddModifier( p_gttm );
     }

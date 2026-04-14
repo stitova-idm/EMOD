@@ -623,7 +623,7 @@ namespace Kernel
         m_pParasiteIdGenerator = pIdGen;
     }
 
-    void VectorCohortIndividualMalariaGenetics::CountSporozoiteBarcodeHashcodes( std::map<int64_t, int32_t>& rSporozoiteBarcodeHashcodeToCountMap )
+    void VectorCohortIndividualMalariaGenetics::CountSporozoiteBarcodeHashcodes( std::map<uint64_t, int32_t>& rSporozoiteBarcodeHashcodeToCountMap )
     {
         for( auto p_pc : m_SporozoiteCohorts )
         {
@@ -694,8 +694,8 @@ namespace Kernel
     float VectorCohortIndividualMalariaGenetics::GetOocystProgressModifier( const VectorTraitModifiers& rTraitModifiers,
                                                                             IParasiteCohort* pOocystCohort ) const
     {
-        int64_t barcode_hash_A = pOocystCohort->GetGenome().GetBarcodeHashcode();
-        int64_t barcode_hash_B = pOocystCohort->GetMaleGametocyteGenome().GetBarcodeHashcode();
+        uint64_t barcode_hash_A = pOocystCohort->GetGenome().GetBarcodeHashcode();
+        uint64_t barcode_hash_B = pOocystCohort->GetMaleGametocyteGenome().GetBarcodeHashcode();
         float modifier = rTraitModifiers.GetModifier( VectorTrait::OOCYST_PROGRESSION,
                                                       this->GetGenome(), 
                                                       barcode_hash_A,
@@ -706,7 +706,7 @@ namespace Kernel
     float VectorCohortIndividualMalariaGenetics::GetSporozoiteMortalityModifier( const VectorTraitModifiers& rTraitModifiers,
                                                                                  IParasiteCohort* pSporoziteCohort ) const
     {
-        int64_t barcode_hash = pSporoziteCohort->GetGenome().GetBarcodeHashcode();
+        uint64_t barcode_hash = pSporoziteCohort->GetGenome().GetBarcodeHashcode();
         float modifier = rTraitModifiers.GetModifier( VectorTrait::SPOROZOITE_MORTALITY, this->GetGenome(), barcode_hash );
         return modifier;
     }

@@ -268,7 +268,7 @@ SUITE( ParasiteGeneticsTest )
             ParasiteGenome pg_1 = ParasiteGenetics::GetInstance()->CreateGenome( pg_tmp_1, 1 );
 
             CHECK_EQUAL( 2, pg_1.GetID() );
-            CHECK_EQUAL( -8281306736165534423, pg_1.GetHashcode() );
+            CHECK_EQUAL( uint64_t(10165437337544017193ull), pg_1.GetHashcode() );
             CHECK_EQUAL( 1, ParasiteGenetics::GetInstance()->GetGenomeMapSize() );
 
             // create a second, different genome and verify that the map now has the two entries
@@ -296,7 +296,7 @@ SUITE( ParasiteGeneticsTest )
             ParasiteGenome pg_tmp_1b = ParasiteGenetics::GetInstance()->CreateGenomeFromBarcode( &rng, barcode_1, drug_1, hrp_1 );
             ParasiteGenome pg_1b = ParasiteGenetics::GetInstance()->CreateGenome( pg_tmp_1b, 1 );
 
-            CHECK_EQUAL( -8281306736165534423, pg_1b.GetHashcode() );
+            CHECK_EQUAL( uint64_t(10165437337544017193ull), pg_1b.GetHashcode() );
             CHECK_EQUAL( 2, pg_1b.GetID() ); // same ID
             CHECK_EQUAL( 3, ParasiteGenetics::GetInstance()->GetGenomeMapSize() ); // nap size has not changed
 
@@ -324,7 +324,7 @@ SUITE( ParasiteGeneticsTest )
         ParasiteGenome pg_5 = ParasiteGenetics::GetInstance()->CreateGenome( pg_tmp_5, 5 );
 
         CHECK_EQUAL( 12, pg_5.GetID() );
-        CHECK_EQUAL( -6876492153842306679, pg_5.GetHashcode() );
+        CHECK_EQUAL( uint64_t(11570251919867244937ull), pg_5.GetHashcode() );
         CHECK_EQUAL( 1, ParasiteGenetics::GetInstance()->GetGenomeMapSize() );
 
         // -------------------------------------------------------------------------------
@@ -343,7 +343,7 @@ SUITE( ParasiteGeneticsTest )
         //CHECK_EQUAL( 2, pg_1c.GetID() ); // same ID
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        CHECK_EQUAL( -8281306736165534423, pg_1c.GetHashcode() );
+        CHECK_EQUAL( uint64_t(10165437337544017193ull), pg_1c.GetHashcode() );
         CHECK_EQUAL( 2, ParasiteGenetics::GetInstance()->GetGenomeMapSize() ); // map size has not changed
 
         // -------------------------------------------------------------------------
@@ -355,7 +355,7 @@ SUITE( ParasiteGeneticsTest )
         ParasiteGenome pg_5b = ParasiteGenetics::GetInstance()->CreateGenome( pg_tmp_5b, 5 );
 
         CHECK_EQUAL( 12, pg_5b.GetID() );
-        CHECK_EQUAL( -6876492153842306679, pg_5b.GetHashcode() );
+        CHECK_EQUAL( uint64_t(11570251919867244937ull), pg_5b.GetHashcode() );
         CHECK_EQUAL( 2, ParasiteGenetics::GetInstance()->GetGenomeMapSize() );
 
         // --------------------------------------------------------------
@@ -5323,10 +5323,10 @@ SUITE( ParasiteGeneticsTest )
         // ------------------------------------------------------------------
         std::string barcode = "AAAAAAAAAAAAAAAAAAAAAAAA";
 
-        std::vector<int64_t> hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", barcode );
+        std::vector<uint64_t> hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", barcode );
 
         CHECK_EQUAL( 1, hashcodes.size() );
-        CHECK_EQUAL( 5572157665409572113, hashcodes[ 0 ] );
+        CHECK_EQUAL( uint64_t(5572157665409572113ull), hashcodes[ 0 ] );
 
         // ------------------------------------------------------------------
         // --- Test a different fix barcode
@@ -5336,7 +5336,7 @@ SUITE( ParasiteGeneticsTest )
         hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", barcode );
 
         CHECK_EQUAL( 1, hashcodes.size() );
-        CHECK_EQUAL( 4326324628502345245, hashcodes[ 0 ] );
+        CHECK_EQUAL( uint64_t(4326324628502345245ull), hashcodes[ 0 ] );
 
         // ------------------------------------------------------------------
         // --- Test barcode with one wild card
@@ -5346,10 +5346,10 @@ SUITE( ParasiteGeneticsTest )
         hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", barcode );
 
         CHECK_EQUAL( 4, hashcodes.size() );
-        CHECK_EQUAL(  5572157665409572113, hashcodes[ 0 ] );
-        CHECK_EQUAL(  7716733729169126994, hashcodes[ 1 ] );
-        CHECK_EQUAL( -8585434280780869741, hashcodes[ 2 ] );
-        CHECK_EQUAL( -6440858217021314860, hashcodes[ 3 ] );
+        CHECK_EQUAL( uint64_t( 5572157665409572113ull), hashcodes[ 0 ] );
+        CHECK_EQUAL( uint64_t( 7716733729169126994ull), hashcodes[ 1 ] );
+        CHECK_EQUAL( uint64_t( 9861309792928681875ull), hashcodes[ 2 ] );
+        CHECK_EQUAL( uint64_t(12005885856688236756ull), hashcodes[ 3 ] );
 
         // ------------------------------------------------------------------
         // --- Test barcode with two wild cards
@@ -5359,22 +5359,22 @@ SUITE( ParasiteGeneticsTest )
         hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", barcode );
 
         CHECK_EQUAL( 16, hashcodes.size() );
-        CHECK_EQUAL(  3399472242714103022, hashcodes[  0 ] );
-        CHECK_EQUAL(  5544048306473657903, hashcodes[  1 ] );
-        CHECK_EQUAL(  7688624370233212784, hashcodes[  2 ] );
-        CHECK_EQUAL( -8613543639716783951, hashcodes[  3 ] );
-        CHECK_EQUAL(  4169518381124239983, hashcodes[  4 ] );
-        CHECK_EQUAL(  6314094444883794864, hashcodes[  5 ] );
-        CHECK_EQUAL(  8458670508643349745, hashcodes[  6 ] );
-        CHECK_EQUAL( -7843497501306646990, hashcodes[  7 ] );
-        CHECK_EQUAL(  4939564519534376944, hashcodes[  8 ] );
-        CHECK_EQUAL(  7084140583293931825, hashcodes[  9 ] );
-        CHECK_EQUAL( -9218027426656064910, hashcodes[ 10 ] );
-        CHECK_EQUAL( -7073451362896510029, hashcodes[ 11 ] );
-        CHECK_EQUAL(  5709610657944513905, hashcodes[ 12 ] );
-        CHECK_EQUAL(  7854186721704068786, hashcodes[ 13 ] );
-        CHECK_EQUAL( -8447981288245927949, hashcodes[ 14 ] );
-        CHECK_EQUAL( -6303405224486373068, hashcodes[ 15 ] );
+        CHECK_EQUAL( uint64_t( 3399472242714103022ull), hashcodes[  0 ] );
+        CHECK_EQUAL( uint64_t( 5544048306473657903ull), hashcodes[  1 ] );
+        CHECK_EQUAL( uint64_t( 7688624370233212784ull), hashcodes[  2 ] );
+        CHECK_EQUAL( uint64_t( 9833200433992767665ull), hashcodes[  3 ] );
+        CHECK_EQUAL( uint64_t( 4169518381124239983ull), hashcodes[  4 ] );
+        CHECK_EQUAL( uint64_t( 6314094444883794864ull), hashcodes[  5 ] );
+        CHECK_EQUAL( uint64_t( 8458670508643349745ull), hashcodes[  6 ] );
+        CHECK_EQUAL( uint64_t(10603246572402904626ull), hashcodes[  7 ] );
+        CHECK_EQUAL( uint64_t( 4939564519534376944ull), hashcodes[  8 ] );
+        CHECK_EQUAL( uint64_t( 7084140583293931825ull), hashcodes[  9 ] );
+        CHECK_EQUAL( uint64_t( 9228716647053486706ull), hashcodes[ 10 ] );
+        CHECK_EQUAL( uint64_t(11373292710813041587ull), hashcodes[ 11 ] );
+        CHECK_EQUAL( uint64_t( 5709610657944513905ull), hashcodes[ 12 ] );
+        CHECK_EQUAL( uint64_t( 7854186721704068786ull), hashcodes[ 13 ] );
+        CHECK_EQUAL( uint64_t( 9998762785463623667ull), hashcodes[ 14 ] );
+        CHECK_EQUAL( uint64_t(12143338849223178548ull), hashcodes[ 15 ] );
 
         // ------------------------------------------------------------------
         // --- Test barcode with wild card in first spot
@@ -5384,10 +5384,10 @@ SUITE( ParasiteGeneticsTest )
         hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", barcode );
 
         CHECK_EQUAL( 4, hashcodes.size() );
-        CHECK_EQUAL(  5572157665409572113, hashcodes[  0 ] );
-        CHECK_EQUAL( -1732960652882433040, hashcodes[  1 ] );
-        CHECK_EQUAL( -9038078971174438193, hashcodes[  2 ] );
-        CHECK_EQUAL(  2103546784243108270, hashcodes[  3 ] );
+        CHECK_EQUAL( uint64_t( 5572157665409572113ull), hashcodes[  0 ] );
+        CHECK_EQUAL( uint64_t(16713783420827118576ull), hashcodes[  1 ] );
+        CHECK_EQUAL( uint64_t( 9408665102535113423ull), hashcodes[  2 ] );
+        CHECK_EQUAL( uint64_t( 2103546784243108270ull), hashcodes[  3 ] );
     }
 #endif
 

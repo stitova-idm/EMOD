@@ -48,7 +48,7 @@ namespace Kernel
 
         //IVectorCohortIndividualMalariaGenetics
         virtual void SetParasiteIdGenderator( IParasiteIdGenerator* pIdGen ) override;
-        virtual void CountSporozoiteBarcodeHashcodes( std::map<int64_t,int32_t>& rSporozoiteBarcodeHashcodeToCountMap ) override;
+        virtual void CountSporozoiteBarcodeHashcodes( std::map<uint64_t,int32_t>& rSporozoiteBarcodeHashcodeToCountMap ) override;
         virtual uint32_t GetNumParasiteCohortsOocysts() const override;
         virtual uint32_t GetNumParasiteCohortsSporozoites() const override;
         virtual uint32_t GetNumOocysts() const override;

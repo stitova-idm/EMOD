@@ -39,22 +39,22 @@ namespace Kernel
 
         VectorTrait::Enum GetTrait() const;
         float GetModifier() const;
-        const std::vector<int64_t>& GetPossibleParasiteBarcodeHashesA() const;
-        const std::vector<int64_t>& GetPossibleParasiteBarcodeHashesB() const;
+        const std::vector<uint64_t>& GetPossibleParasiteBarcodeHashesA() const;
+        const std::vector<uint64_t>& GetPossibleParasiteBarcodeHashesB() const;
 
     protected:
         void CheckForEmptyBarcode( VectorTrait::Enum trait,
                                    const std::string& rParameterName,
                                    const std::string& rBarcode ) const;
-        std::vector<int64_t> ConvertBarcode( VectorTrait::Enum trait,
+        std::vector<uint64_t> ConvertBarcode( VectorTrait::Enum trait,
                                              const std::string& rParameterName,
                                              const std::string& rBarcode ) const;
 
 
         VectorTrait::Enum m_Trait;
         float m_Modifier;
-        std::vector<int64_t> m_PossibleParasiteBarcodeHashesA;
-        std::vector<int64_t> m_PossibleParasiteBarcodeHashesB;
+        std::vector<uint64_t> m_PossibleParasiteBarcodeHashesA;
+        std::vector<uint64_t> m_PossibleParasiteBarcodeHashesB;
     };
 
     // This class is a collection of TraitModifier objects that will be associated with
@@ -103,23 +103,23 @@ namespace Kernel
         GeneToTraitModifier( VectorTrait::Enum trait,
                              const VectorGameteBitPair_t& rBitMask,
                              const std::vector<VectorGameteBitPair_t>& rPossibleGenomes,
-                             const std::vector<int64_t>& rPossibleParasiteBarcodeHashesA,
-                             const std::vector<int64_t>& rPossibleParasiteBarcodeHashesB,
+                             const std::vector<uint64_t>& rPossibleParasiteBarcodeHashesA,
+                             const std::vector<uint64_t>& rPossibleParasiteBarcodeHashesB,
                              float modifier );
         ~GeneToTraitModifier();
 
         VectorTrait::Enum GetTrait() const;
         bool IsTraitModified( const VectorGenome& rGenome,
-                              int64_t parasiteBarcodeHashA,
-                              int64_t parasiteBarcodeHashB ) const;
+                              uint64_t parasiteBarcodeHashA,
+                              uint64_t parasiteBarcodeHashB ) const;
         float GetModifier() const;
 
     private:
         VectorTrait::Enum                  m_Trait;
         VectorGameteBitPair_t              m_BitMask;
         std::vector<VectorGameteBitPair_t> m_PossibleGenomes;
-        std::vector<int64_t>               m_PossibleParasiteBarcodeHashesA;
-        std::vector<int64_t>               m_PossibleParasiteBarcodeHashesB;
+        std::vector<uint64_t>               m_PossibleParasiteBarcodeHashesA;
+        std::vector<uint64_t>               m_PossibleParasiteBarcodeHashesB;
         float                              m_Modifier;
     };
 
@@ -140,8 +140,8 @@ namespace Kernel
         void AddModifier( GeneToTraitModifier* pNewModifier );
         float GetModifier( VectorTrait::Enum trait,
                            const VectorGenome& rGenome,
-                           int64_t parasiteBarcodeHashA = 0,
-                           int64_t parasiteBarcodeHashB = 0 ) const;
+                           uint64_t parasiteBarcodeHashA = 0,
+                           uint64_t parasiteBarcodeHashB = 0 ) const;
 
     protected:
         virtual GeneToTraitModifierConfig* CreateObject() override;

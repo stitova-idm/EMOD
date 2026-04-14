@@ -115,8 +115,8 @@ namespace Kernel
                                                           const std::vector<std::vector<float>>& rAlleleFreqDrugResistant,
                                                           const std::vector<std::vector<float>>& rAlleleFreqHRP ) const;
 
-        std::vector<int64_t> FindPossibleBarcodeHashcodes( const std::string& rParameterName,
-                                                           const std::string& rBarcode ) const;
+        std::vector<uint64_t> FindPossibleBarcodeHashcodes( const std::string& rParameterName,
+                                                            const std::string& rBarcode ) const;
 
         void ReduceGenomeMap();
         void ClearGenomeMap();
@@ -197,8 +197,8 @@ namespace Kernel
 
         int32_t m_NumBasePairs;
 
-        std::map<int64_t,ParasiteGenomeInner*> m_ParasiteGenomeMap;
-        std::map<int64_t, uint32_t> m_HashToGenomeID;
+        std::map<uint64_t,ParasiteGenomeInner*> m_ParasiteGenomeMap;
+        std::map<uint64_t, uint32_t> m_HashToGenomeID;
         suids::distributed_generator m_GenomeIdGenerator;
     };
 }

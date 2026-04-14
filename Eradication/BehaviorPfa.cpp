@@ -552,7 +552,7 @@ namespace Kernel
         ar.labelElement("m_cum_prob_threshold"    ) & pfa.m_cum_prob_threshold;
         ar.labelElement("m_time_since_last_update") & pfa.m_time_since_last_update;
 
-        // preference is a member variable only so we don't allocate the lenght of the vector every time.
+        // preference is a member variable only so we don't allocate the length of the vector every time.
         //ar.labelElement("preference"              ) & pfa.preference;
 
         ar.labelElement("desired_flow"            ) & pfa.desired_flow;

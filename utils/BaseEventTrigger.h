@@ -45,7 +45,7 @@ namespace Kernel
         bool operator==( const Trigger& rThat ) const;
         bool operator!=( const Trigger& rThat ) const;
 
-        // Returns true if the trigger has not been intialized
+        // Returns true if the trigger has not been initialized
         bool IsUninitialized() const;
 
         // Returns the string value of the event

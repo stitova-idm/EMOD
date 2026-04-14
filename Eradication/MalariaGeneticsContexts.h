@@ -110,7 +110,7 @@ namespace Kernel
     struct IVectorCohortIndividualMalariaGenetics : public ISupports
     {
         virtual void SetParasiteIdGenderator( IParasiteIdGenerator* pIdGen ) = 0;
-        virtual void CountSporozoiteBarcodeHashcodes( std::map<int64_t,int32_t>& rSporozoiteBarcodeHashcodeToCountMap ) = 0;
+        virtual void CountSporozoiteBarcodeHashcodes( std::map<uint64_t,int32_t>& rSporozoiteBarcodeHashcodeToCountMap ) = 0;
         virtual uint32_t GetNumParasiteCohortsOocysts() const = 0;
         virtual uint32_t GetNumParasiteCohortsSporozoites() const = 0;
         virtual uint32_t GetNumOocysts() const = 0;

@@ -338,7 +338,7 @@ namespace Kernel
 
 
     // The BaseFactory is a singleton that manages all of the Properties 
-    // in the simulation.  It is responsable for ensuring that there is only one
+    // in the simulation.  It is responsible for ensuring that there is only one
     // of each.  The instance of IPFactory/NPFactory is contained in Environment so that
     // DLL's will have access to the singleton.
     // This design assumes that there is only one valid set of Properties

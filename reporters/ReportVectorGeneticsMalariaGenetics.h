@@ -84,6 +84,6 @@ namespace Kernel
         std::vector<std::string> m_ParasiteBarcodes;
         std::map<std::string,          OccystAndSporozoiteData*> m_OocystAndSporozoitDataNameMap;
         std::map<VectorGameteBitPair_t,OccystAndSporozoiteData*> m_OocystAndSporozoitDataBitsMap;
-        std::map<int64_t,int32_t> m_SporozoiteBarcodeHascodeCountMap;
+        std::map<uint64_t,int32_t> m_SporozoiteBarcodeHascodeCountMap;
     };
 }

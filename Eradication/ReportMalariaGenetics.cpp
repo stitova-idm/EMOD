@@ -102,7 +102,7 @@ namespace Kernel
         int num_with_no_hrp = 0;
         bool person_has_infection_with_no_HRP = false;
         bool person_has_drug_resistant_infection = false;
-        std::set<int64_t> genome_set;
+        std::set<uint64_t> genome_set;
         for( auto p_inf : individual->GetInfections() )
         {
             const IStrainIdentity& r_si = p_inf->GetInfectiousStrainID();

@@ -2590,7 +2590,7 @@ namespace Kernel
                                );
                 }
 
-                //}  NOTE: For now without if statement. Need to include a seperate parameter to address this.  
+                //}  NOTE: For now without if statement. Need to include a separate parameter to address this.  
                 float percent_hatched = float( tmp_eggHatchDelayFactor ) * float( localdensdephatchmod );
                 uint32_t hatched = m_context->GetRng()->binomial_approx( cohort->GetPopulation(), percent_hatched );
                 LOG_VALID_F( "temperature = %f, local density dependence modifier is %f, egg hatch delay factor is %f, current population is %d, hatched is %d, id = %d.\n",

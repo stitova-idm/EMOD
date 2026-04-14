@@ -312,7 +312,7 @@ namespace Kernel
 
 
     // The IPFactory is a singleton that manages all of the Individual Properties 
-    // in the simulation.  It is responsable for ensuring that there is only one
+    // in the simulation.  It is responsible for ensuring that there is only one
     // of each.  The instance of IPFactory is contained in Environment so that
     // DLL's will have access to this singleton.
     // This design assumes that there is only one valid set of Individual Properties

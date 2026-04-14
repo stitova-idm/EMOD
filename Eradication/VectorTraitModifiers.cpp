@@ -87,11 +87,11 @@ namespace Kernel
 
     }
 
-    std::vector<int64_t> TraitModifier::ConvertBarcode( VectorTrait::Enum trait,
+    std::vector<uint64_t> TraitModifier::ConvertBarcode( VectorTrait::Enum trait,
                                                         const std::string& rParameterName,
                                                         const std::string& rBarcode ) const
     {
-        const std::vector<int64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( rParameterName, rBarcode );
+        const std::vector<uint64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( rParameterName, rBarcode );
         if( r_hashcodes.size() > 50 )
         {
             std::stringstream ss;
@@ -113,12 +113,12 @@ namespace Kernel
         return m_Modifier;
     }
 
-    const std::vector<int64_t>& TraitModifier::GetPossibleParasiteBarcodeHashesA() const
+    const std::vector<uint64_t>& TraitModifier::GetPossibleParasiteBarcodeHashesA() const
     {
         return m_PossibleParasiteBarcodeHashesA;
     }
 
-    const std::vector<int64_t>& TraitModifier::GetPossibleParasiteBarcodeHashesB() const
+    const std::vector<uint64_t>& TraitModifier::GetPossibleParasiteBarcodeHashesB() const
     {
         return m_PossibleParasiteBarcodeHashesB;
     }
@@ -228,8 +228,8 @@ namespace Kernel
     GeneToTraitModifier::GeneToTraitModifier( VectorTrait::Enum trait,
                                               const VectorGameteBitPair_t& rBitMask,
                                               const std::vector<VectorGameteBitPair_t>& rPossibleGenomes,
-                                              const std::vector<int64_t>& rPossibleParasiteBarcodeHashesA,
-                                              const std::vector<int64_t>& rPossibleParasiteBarcodeHashesB,
+                                              const std::vector<uint64_t>& rPossibleParasiteBarcodeHashesA,
+                                              const std::vector<uint64_t>& rPossibleParasiteBarcodeHashesB,
                                               float modifier )
         : m_Trait( trait )
         , m_BitMask( rBitMask )
@@ -250,8 +250,8 @@ namespace Kernel
     }
 
     bool GeneToTraitModifier::IsTraitModified( const VectorGenome& rGenome,
-                                               int64_t parasiteBarcodeHashA,
-                                               int64_t parasiteBarcodeHashB ) const
+                                               uint64_t parasiteBarcodeHashA,
+                                               uint64_t parasiteBarcodeHashB ) const
     {
         VectorGameteBitPair_t genome_bits = m_BitMask & rGenome.GetBits();
 
@@ -261,7 +261,7 @@ namespace Kernel
             {
                 if( m_Trait == VectorTrait::SPOROZOITE_MORTALITY )
                 {
-                    for( int64_t hash : m_PossibleParasiteBarcodeHashesA )
+                    for( uint64_t hash : m_PossibleParasiteBarcodeHashesA )
                     {
                         if( parasiteBarcodeHashA == hash )
                         {
@@ -274,7 +274,7 @@ namespace Kernel
                 {
                     bool list_A_has_A = false;
                     bool list_A_has_B = false;
-                    for( int64_t hash : m_PossibleParasiteBarcodeHashesA )
+                    for( uint64_t hash : m_PossibleParasiteBarcodeHashesA )
                     {
                         if( parasiteBarcodeHashA == hash )
                         {
@@ -287,7 +287,7 @@ namespace Kernel
                     }
                     bool list_B_has_A = false;
                     bool list_B_has_B = false;
-                    for( int64_t hash : m_PossibleParasiteBarcodeHashesB )
+                    for( uint64_t hash : m_PossibleParasiteBarcodeHashesB )
                     {
                         if( parasiteBarcodeHashA == hash )
                         {
@@ -361,8 +361,8 @@ namespace Kernel
 
     float VectorTraitModifiers::GetModifier( VectorTrait::Enum trait,
                                              const VectorGenome& rGenome,
-                                             int64_t parasiteBarcodeHashA,
-                                             int64_t parasiteBarcodeHashB ) const
+                                             uint64_t parasiteBarcodeHashA,
+                                             uint64_t parasiteBarcodeHashB ) const
     {
         float modifier = 1.0;
 

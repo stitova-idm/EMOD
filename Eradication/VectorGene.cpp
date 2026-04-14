@@ -141,7 +141,7 @@ namespace Kernel
             }
             release_assert( found_from );
         }
-        // all of the mutations have been transfered to the allele
+        // all of the mutations have been transferred to the allele
         m_Collection.clear();
     }
 

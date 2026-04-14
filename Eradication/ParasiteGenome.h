@@ -103,12 +103,12 @@ namespace Kernel
         // A hashcode based on the algorithm of Josh Bloch's Effective Java in Item 8 
         // This was intended to be the unique ID but we needed to go to 64-bits to avoid
         // hash collitions.  Hence, we use the hash code to tell if two genomes have the
-        // same contents, but we use a seperate ID that is only 32-bits.
-        int64_t m_HashCode;
+        // same contents, but we use a separate ID that is only 32-bits.
+        uint64_t m_HashCode;
 
         // A unique ID for the barcode of this genome.  This is different than the hashcode for the genome
         // since it is only the barcode and does not include the allele roots.
-        int64_t m_BarcodeHashcode;
+        uint64_t m_BarcodeHashcode;
 
         // This is a list of integer values where the meaning of each value depends on its position in the array.
         // Each position in the array is determined by the genome locations defined in ParasiteGenetics.
@@ -222,11 +222,11 @@ namespace Kernel
         
         // the unique number representing the nucleotide sequence and allele roots.
         // this could be the unique ID of the genome, but want to keep that ID as a 32-bit integer
-        int64_t GetHashcode() const;
+        uint64_t GetHashcode() const;
 
         // Return a unique ID for the barcode of this genome.  This is different than the hashcode for the genome
         // since it is only the barcode and does not include the allele roots.
-        int64_t GetBarcodeHashcode() const;
+        uint64_t GetBarcodeHashcode() const;
 
         // Return the identifier of the merozoite surface protein (MSP)
         // This will be a value between zero and the parameter 'Falciparum_MSP_Variants'

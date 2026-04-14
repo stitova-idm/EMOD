@@ -555,6 +555,7 @@ namespace Kernel
     }
 
 #define STAR_VAL (4)
+    static constexpr uint64_t C31 = UINT64_C(31);
 
     int32_t ParasiteGenetics::ConvertCharToVal( const std::string& rParameterName, bool isReportParameter, char c )
     {
@@ -1150,8 +1151,8 @@ namespace Kernel
         release_assert( m_IndexesMajor.size()   == m_LocationsMajor.size()   );
     }
 
-    std::vector<int64_t> ParasiteGenetics::FindPossibleBarcodeHashcodes( const std::string& rParameterName,
-                                                                         const std::string& rBarcode ) const
+    std::vector<uint64_t> ParasiteGenetics::FindPossibleBarcodeHashcodes( const std::string& rParameterName,
+                                                                          const std::string& rBarcode ) const
     {
         CheckStringLength( rParameterName,
                            true,
@@ -1161,17 +1162,17 @@ namespace Kernel
 
         std::vector<std::string> possible_barcodes;
 
-        std::vector<int64_t> hashcodes;
+        std::vector<uint64_t> hashcodes;
         hashcodes.push_back( 17 );
 
         for( int i = 0; i < rBarcode.length(); ++i )
         {
-            int64_t val = ConvertCharToVal( rParameterName, true, rBarcode[ i ] );
+            uint64_t val = ConvertCharToVal( rParameterName, true, rBarcode[ i ] );
             if( val != STAR_VAL )
             {
                 for( auto& r_hash : hashcodes )
                 {
-                    r_hash = 31 * r_hash + val;
+                    r_hash = C31 * r_hash + val;
                 }
             }
             else
@@ -1184,18 +1185,18 @@ namespace Kernel
                 size_t num_hashcodes = hashcodes.size();
 
                 // For each existing hashcode, create a new one with C, G, and T
-                for( int val = 1; val <= 3; ++val )
+                for( uint64_t val = 1; val <= 3; ++val )
                 {
                     for( int i = 0; i < num_hashcodes; ++i )
                     {
-                        int64_t new_hash = 31 * hashcodes[ i ] + val;
+                        uint64_t new_hash = C31 * hashcodes[ i ] + val;
                         hashcodes.push_back( new_hash );
                     }
                 }
                 // update the existing ones with 'A'
                 for( int i = 0; i < num_hashcodes; ++i )
                 {
-                    hashcodes[ i ] = 31 * hashcodes[ i ] + 0; //0=A
+                    hashcodes[ i ] = C31 * hashcodes[ i ] + 0; //0=A
                 }
             }
         }
@@ -1278,7 +1279,7 @@ namespace Kernel
 
     void ParasiteGenetics::ReduceGenomeMap()
     {
-        std::vector<int64_t> genomes_to_delete;
+        std::vector<uint64_t> genomes_to_delete;
         for( auto it : m_ParasiteGenomeMap )
         {
             if( it.second->m_refcount == 1 )

@@ -96,9 +96,9 @@ namespace Kernel
         VectorParasiteStats m_ParasiteStats;
         OtherVectorStats m_OtherStats;
         std::vector<ReportUtilitiesMalaria::BarcodeColumn*> m_BarcodeColumns;
-        std::map<int64_t,ReportUtilitiesMalaria::BarcodeColumn*> m_BarcodeColumnMap;
+        std::map<uint64_t,ReportUtilitiesMalaria::BarcodeColumn*> m_BarcodeColumnMap;
         ReportUtilitiesMalaria::BarcodeColumn m_BarcodeColumnOther;
-        std::map<int64_t,int32_t> m_SporozoiteBarcodeHascodeCountMap;
+        std::map<uint64_t,int32_t> m_SporozoiteBarcodeHascodeCountMap;
         std::map<INodeContext*,bool> m_HaveRegisteredVectorCounter;
     };
 }

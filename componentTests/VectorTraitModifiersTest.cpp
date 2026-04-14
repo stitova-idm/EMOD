@@ -315,20 +315,20 @@ SUITE( VectorTraitModifiersTest )
         vg_female_a2_a2.SetLocus( 1, 1, 1 ); // a2,a2
         CHECK_EQUAL( "X-a2:X-a2", gene_collection.GetGenomeName( vg_female_a2_a2 ) );
 
-        std::vector<int64_t> hashes_aaa = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "AAA" );
-        int64_t aaa = hashes_aaa[ 0 ]; // parasite barcode hash that goes with vg_female_a1_a1
+        std::vector<uint64_t> hashes_aaa = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "AAA" );
+        uint64_t aaa = hashes_aaa[ 0 ]; // parasite barcode hash that goes with vg_female_a1_a1
 
-        std::vector<int64_t> hashes_ggg = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "GGG" );
-        int64_t ggg = hashes_ggg[ 0 ]; // parasite barcode hash that goes with vg_female_a1_a1
+        std::vector<uint64_t> hashes_ggg = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "GGG" );
+        uint64_t ggg = hashes_ggg[ 0 ]; // parasite barcode hash that goes with vg_female_a1_a1
 
-        std::vector<int64_t> hashes_ccc = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "CCC" );
-        int64_t ccc = hashes_ccc[ 0 ]; // parasite barcode hash that goes with vg_female_a2_a2
+        std::vector<uint64_t> hashes_ccc = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "CCC" );
+        uint64_t ccc = hashes_ccc[ 0 ]; // parasite barcode hash that goes with vg_female_a2_a2
 
-        std::vector<int64_t> hashes_cca = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "CCA" );
-        int64_t cca = hashes_cca[ 0 ]; // parasite barcode hash that goes with vg_female_a2_a2
+        std::vector<uint64_t> hashes_cca = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "CCA" );
+        uint64_t cca = hashes_cca[ 0 ]; // parasite barcode hash that goes with vg_female_a2_a2
 
-        std::vector<int64_t> hashes_acc = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "ACC" );
-        int64_t acc = hashes_acc[ 0 ]; // parasite barcode hash that does NOT go with either genome
+        std::vector<uint64_t> hashes_acc = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "test", "ACC" );
+        uint64_t acc = hashes_acc[ 0 ]; // parasite barcode hash that does NOT go with either genome
 
         CHECK_CLOSE( 1.0, trait_modifiers.GetModifier( VectorTrait::OOCYST_PROGRESSION, vg_female_a1_a1,   0, ggg ), FLT_EPSILON );
         CHECK_CLOSE( 2.0, trait_modifiers.GetModifier( VectorTrait::OOCYST_PROGRESSION, vg_female_a1_a1, aaa, ggg ), FLT_EPSILON );

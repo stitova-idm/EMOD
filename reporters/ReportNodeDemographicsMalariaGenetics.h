@@ -39,7 +39,7 @@ namespace Kernel
         ~GenomeComboMatrixRow();
 
         inline const   ParasiteGenome& GetRowGenome()  const { return m_RowGenome;                  }
-        inline int64_t GetGenomeHash()                 const { return m_RowGenome.GetHashcode();    }
+        inline uint64_t GetGenomeHash()                 const { return m_RowGenome.GetHashcode();    }
         inline float   GetTimeAdded()                  const { return m_TimeAdded;                  }
         inline float   GetRowFractionSameAlleleTotal() const { return m_RowFractionSameAlleleTotal; }
         inline float   GetRowFractionSameRootTotal()   const { return m_RowFractionSameRootTotal;   }
@@ -86,7 +86,7 @@ namespace Kernel
     private:
         int m_NumCombinations;
         float m_MatrixTimeWindow;
-        std::vector<int64_t> m_RowsGenomeHash;
+        std::vector<uint64_t> m_RowsGenomeHash;
         std::vector<GenomeComboMatrixRow*> m_Rows;
     };
 
@@ -114,12 +114,12 @@ namespace Kernel
         int32_t current_num_infections;
         std::set<uint32_t> current_bite_ids; // delivering infections
         int32_t current_num_bites_multi_inf; // bites delivering multiple infections
-        std::set<int64_t> total_unique_genomes;
-        std::set<int64_t> total_unique_barcodes;
-        std::set<int64_t> current_unique_genomes;
-        std::set<int64_t> current_unique_barcodes;
-        std::vector<std::map<int64_t,float>> unique_genome_hash_2_first_appeared_by_year;
-        std::vector<std::map<int64_t,float>> unique_barcode_hash_2_first_appeared_by_year;
+        std::set<uint64_t> total_unique_genomes;
+        std::set<uint64_t> total_unique_barcodes;
+        std::set<uint64_t> current_unique_genomes;
+        std::set<uint64_t> current_unique_barcodes;
+        std::vector<std::map<uint64_t,float>> unique_genome_hash_2_first_appeared_by_year;
+        std::vector<std::map<uint64_t,float>> unique_barcode_hash_2_first_appeared_by_year;
 
         std::vector<std::vector<uint32_t>> num_occurrences_root_position;
         std::vector<std::pair<ParasiteGenome,float>> new_infections_last_year;

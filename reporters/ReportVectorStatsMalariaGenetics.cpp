@@ -63,11 +63,11 @@ namespace Kernel
 
             for( auto bar : barcodes )
             {
-                const std::vector<int64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "Barcodes", bar );
+                const std::vector<uint64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "Barcodes", bar );
                 ReportUtilitiesMalaria::BarcodeColumn* p_bc = new ReportUtilitiesMalaria::BarcodeColumn( bar );
                 m_BarcodeColumns.push_back( p_bc );
 
-                for( int64_t hash : r_hashcodes )
+                for( uint64_t hash : r_hashcodes )
                 {
                     m_BarcodeColumnMap[ hash ] = p_bc;
                 }

@@ -320,7 +320,7 @@ namespace Kernel
         };
 
         // -------------------------------------------------------------------------------------------
-        // --- Move the relationships from the vector of maps to the queues used in transfering data.
+        // --- Move the relationships from the vector of maps to the queues used in transferring data.
         // --- We need to check for terminate because one partner could have be migrating and the
         // --- second partner processed died.  If this happens, the relationship was migrating but
         // --- was terminated while in a migration state.
@@ -347,7 +347,7 @@ namespace Kernel
 
         // --------------------------------------------------------------------------------------------------
         // --- Migrate the relationships before the people.  This allows the RelationshipManager to have all
-        // --- of the relationships updated before people are transfered and need the relationships.
+        // --- of the relationships updated before people are transferred and need the relationships.
         // --------------------------------------------------------------------------------------------------
         MpiDataExchanger exchanger( "RelationshipMigration", to_self_func, to_others_func, from_others_func, clear_data_func );
         exchanger.ExchangeData( this->currentTime );

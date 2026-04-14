@@ -120,11 +120,11 @@ namespace Kernel
                 OccystAndSporozoiteData* p_data = new OccystAndSporozoiteData();
                 for( auto bar : m_ParasiteBarcodes )
                 {
-                    const std::vector<int64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "Parasite_Barcodes", bar );
+                    const std::vector<uint64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "Parasite_Barcodes", bar );
                     ReportUtilitiesMalaria::BarcodeColumn* p_bc = new ReportUtilitiesMalaria::BarcodeColumn( bar );
                     p_data->barcode_columns.push_back( p_bc );
 
-                    for( int64_t hash : r_hashcodes )
+                    for( uint64_t hash : r_hashcodes )
                     {
                         p_data->barcode_column_map[ hash ] = p_bc;
                     }

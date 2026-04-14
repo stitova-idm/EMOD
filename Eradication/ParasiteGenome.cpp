@@ -66,6 +66,19 @@ namespace Kernel
     BEGIN_QUERY_INTERFACE_BODY(ParasiteGenomeInner)
     END_QUERY_INTERFACE_BODY(ParasiteGenomeInner)
 
+    // Use uint64_t constants for all hash arithmetic. Unsigned overflow is
+    // well-defined in C++ (wraps modulo 2^64), whereas signed int64_t overflow
+    // is undefined behavior. MSVC silently wraps signed overflow, but GCC/Clang
+    // may optimize assuming it never occurs, producing different results on Linux.
+    static constexpr uint64_t C31   = UINT64_C(31);
+    static constexpr uint64_t C31_2 = C31 * C31;
+    static constexpr uint64_t C31_3 = C31_2 * C31;
+    static constexpr uint64_t C31_4 = C31_3 * C31;
+    static constexpr uint64_t C31_5 = C31_4 * C31;
+    static constexpr uint64_t C31_6 = C31_5 * C31;
+    static constexpr uint64_t C31_7 = C31_6 * C31;
+    static constexpr uint64_t C31_8 = C31_7 * C31;
+
     void ParasiteGenomeInner::CalculateHashcodes( ParasiteGenomeInner* pInner )
     {
         pInner->m_HashCode = 17;
@@ -79,31 +92,27 @@ namespace Kernel
             // ---------------------------------------------------------------------------
             //for( int i = 0; i < pInner->m_NucleotideSequence.size(); ++i )
             //{
-            //    pInner->m_HashCode = 31 * pInner->m_HashCode + pInner->m_NucleotideSequence[ i ];
-            //    pInner->m_HashCode = 31 * pInner->m_HashCode + pInner->m_AlleleRoots[ i ];
+            //    pInner->m_HashCode = C31 * pInner->m_HashCode + pInner->m_NucleotideSequence[ i ];
+            //    pInner->m_HashCode = C31 * pInner->m_HashCode + pInner->m_AlleleRoots[ i ];
             //}
             // ---------------------------------------------------------------------------
             int len =  pInner->m_NucleotideSequence.size();
             int i = 0;
             for( ; (i+3) < len; i+=4 )
             {
-                // the hashcode calculation normally can overflow, so I'm pretty certain this is ok
-                #pragma warning( push )
-                #pragma warning( disable: 4307 ) // warning C4307: '*': integral constant overflow
-                pInner->m_HashCode = 31 * 31 * 31 * 31 * 31 * 31 * 31 * 31 * pInner->m_HashCode
-                                   + 31 * 31 * 31 * 31 * 31 * 31 * 31 *      pInner->m_NucleotideSequence[ i ]
-                                   + 31 * 31 * 31 * 31 * 31 * 31 *           pInner->m_AlleleRoots[ i ]
-                                   + 31 * 31 * 31 * 31 * 31 *                pInner->m_NucleotideSequence[ i+1 ]
-                                   + 31 * 31 * 31 * 31 *                     pInner->m_AlleleRoots[ i+1 ]
-                                   + 31 * 31 * 31 *                          pInner->m_NucleotideSequence[ i+2 ]
-                                   + 31 * 31 *                               pInner->m_AlleleRoots[ i+2 ]
-                                   + 31*                                     pInner->m_NucleotideSequence[ i+3 ]
-                                   +                                         pInner->m_AlleleRoots[ i+3 ];
-                #pragma warning( pop )
+                pInner->m_HashCode = C31_8 * pInner->m_HashCode
+                                   + C31_7 * pInner->m_NucleotideSequence[ i ]
+                                   + C31_6 * pInner->m_AlleleRoots[ i ]
+                                   + C31_5 * pInner->m_NucleotideSequence[ i+1 ]
+                                   + C31_4 * pInner->m_AlleleRoots[ i+1 ]
+                                   + C31_3 * pInner->m_NucleotideSequence[ i+2 ]
+                                   + C31_2 * pInner->m_AlleleRoots[ i+2 ]
+                                   + C31  * pInner->m_NucleotideSequence[ i+3 ]
+                                   +        pInner->m_AlleleRoots[ i+3 ];
             }
             for( ; i < len; ++i )
             {
-                pInner->m_HashCode = 31 * (31 * pInner->m_HashCode + pInner->m_NucleotideSequence[ i ]) + pInner->m_AlleleRoots[ i ];
+                pInner->m_HashCode = C31 * (C31 * pInner->m_HashCode + pInner->m_NucleotideSequence[ i ]) + pInner->m_AlleleRoots[ i ];
             }
         }
         else
@@ -111,7 +120,7 @@ namespace Kernel
             // we don't include the allele roots when they have not been defined
             for( int i = 0; i < pInner->m_NucleotideSequence.size(); ++i )
             {
-                pInner->m_HashCode = 31 * pInner->m_HashCode + pInner->m_NucleotideSequence[ i ];
+                pInner->m_HashCode = C31 * pInner->m_HashCode + pInner->m_NucleotideSequence[ i ];
             }
         }
 
@@ -122,15 +131,15 @@ namespace Kernel
         int i = 0;
         for( ; (i+3) < len; i+=4 )
         {
-            pInner->m_BarcodeHashcode = 31 * 31 * 31 * 31 * pInner->m_BarcodeHashcode
-                                      + 31 * 31 * 31 *      pInner->m_NucleotideSequence[ r_barcode_indexes[ i   ] ]
-                                      + 31 * 31 *           pInner->m_NucleotideSequence[ r_barcode_indexes[ i+1 ] ]
-                                      + 31 *                pInner->m_NucleotideSequence[ r_barcode_indexes[ i+2 ] ]
-                                      +                     pInner->m_NucleotideSequence[ r_barcode_indexes[ i+3 ] ];
+            pInner->m_BarcodeHashcode = C31_4 * pInner->m_BarcodeHashcode
+                                      + C31_3 * pInner->m_NucleotideSequence[ r_barcode_indexes[ i   ] ]
+                                      + C31_2 * pInner->m_NucleotideSequence[ r_barcode_indexes[ i+1 ] ]
+                                      + C31  * pInner->m_NucleotideSequence[ r_barcode_indexes[ i+2 ] ]
+                                      +        pInner->m_NucleotideSequence[ r_barcode_indexes[ i+3 ] ];
         }
         for( ; i < len; ++i )
         {
-            pInner->m_BarcodeHashcode = 31 * pInner->m_BarcodeHashcode + pInner->m_NucleotideSequence[ r_barcode_indexes[ i ] ];
+            pInner->m_BarcodeHashcode = C31 * pInner->m_BarcodeHashcode + pInner->m_NucleotideSequence[ r_barcode_indexes[ i ] ];
         }
     }
 
@@ -440,12 +449,12 @@ namespace Kernel
         return false;
     }
       
-    int64_t ParasiteGenome::GetHashcode() const
+    uint64_t ParasiteGenome::GetHashcode() const
     {
         return m_pInner->m_HashCode;
     }
 
-    int64_t ParasiteGenome::GetBarcodeHashcode() const
+    uint64_t ParasiteGenome::GetBarcodeHashcode() const
     {
         return m_pInner->m_BarcodeHashcode;
     }

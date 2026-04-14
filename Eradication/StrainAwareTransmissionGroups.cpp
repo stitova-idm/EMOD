@@ -647,7 +647,7 @@ namespace Kernel
     }
 
     // -----------------------------------------------------------------------------
-    // --- This instatiates the template for the version of the tempalte
+    // --- This instantiates the template for the version of the template
     // --- with GeneticProbability.  It eliminates the need to put these template
     // --- methods into the header file. (Template instantiation is done to ensure
     // --- that the methods are created and we don't end up with linker issues.)

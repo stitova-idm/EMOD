@@ -126,7 +126,7 @@ namespace Kernel
         // --- Make sure not to broadcast the events if the person is in the process
         // --- of dying.  Also, don't broadcast the event if the duration is more than
         // --- dt old.  This means that the infection was fast forwarded and these
-        // --- events occured in the past.
+        // --- events occurred in the past.
         // ----------------------------------------------------------------------------
         if( m_has_been_suppressed && (StateChange != InfectionStateChange::Fatal) ) // not goint to die right now
         {

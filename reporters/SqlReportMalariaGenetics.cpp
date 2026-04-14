@@ -219,7 +219,7 @@ namespace Kernel
     {
         Bind( m_pStatementInsertGenome, 1, (int)m_RunNumber                  );
         Bind( m_pStatementInsertGenome, 2, (int)rGenome.GetID()              );
-        Bind( m_pStatementInsertGenome, 3,      rGenome.GetBarcodeHashcode() );
+        Bind( m_pStatementInsertGenome, 3, (int64_t)rGenome.GetBarcodeHashcode() );
         Bind( m_pStatementInsertGenome, 4,      rGenome.GetBarcode()         );
 
         Step( m_pStatementInsertGenome );

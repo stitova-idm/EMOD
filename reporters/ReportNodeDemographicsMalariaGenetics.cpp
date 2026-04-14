@@ -407,8 +407,8 @@ namespace Kernel
     {
         for( int y = 0; y < NUM_YEARS_FOR_BARCODES; ++y )
         {
-            unique_genome_hash_2_first_appeared_by_year.push_back( std::map<int64_t,float>() );
-            unique_barcode_hash_2_first_appeared_by_year.push_back( std::map<int64_t,float>() );
+            unique_genome_hash_2_first_appeared_by_year.push_back( std::map<uint64_t,float>() );
+            unique_barcode_hash_2_first_appeared_by_year.push_back( std::map<uint64_t,float>() );
         }
     }
 
@@ -611,11 +611,11 @@ namespace Kernel
 
         for( auto bar : m_Barcodes )
         {
-            const std::vector<int64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "Barcodes", bar );
+            const std::vector<uint64_t>& r_hashcodes = ParasiteGenetics::GetInstance()->FindPossibleBarcodeHashcodes( "Barcodes", bar );
             ReportUtilitiesMalaria::BarcodeColumn* p_bc = new ReportUtilitiesMalaria::BarcodeColumn( bar );
             p_ndmg->barcode_columns.push_back( p_bc );
 
-            for( int64_t hash : r_hashcodes )
+            for( uint64_t hash : r_hashcodes )
             {
                 p_ndmg->barcode_columns_map[ hash ] = p_bc;
             }
@@ -673,7 +673,7 @@ namespace Kernel
             // -----------------------------------------------
             // --- Count the number of infections per barcode
             // -----------------------------------------------
-            int64_t barcode_hash = r_si_genetics.GetGenome().GetBarcodeHashcode();
+            uint64_t barcode_hash = r_si_genetics.GetGenome().GetBarcodeHashcode();
             if( p_ndmg->barcode_columns_map.find( barcode_hash ) != p_ndmg->barcode_columns_map.end() )
             {
                 p_ndmg->barcode_columns_map[ barcode_hash ]->AddCount( 1 );
@@ -740,7 +740,7 @@ namespace Kernel
                 }                
             }
             
-            int64_t genome_hash = r_si_genetics.GetGenome().GetHashcode();
+            uint64_t genome_hash = r_si_genetics.GetGenome().GetHashcode();
             uint32_t bite_id   = r_si_genetics.GetSporozoiteBiteID();
             p_ndmg->current_num_infections += 1;
             p_ndmg->current_unique_genomes.insert( genome_hash );
@@ -893,7 +893,7 @@ namespace Kernel
                         for( int y = 0; y < NUM_YEARS_FOR_BARCODES; ++y )
                         {
                             float num_years_in_days = DAYSPERYEAR * (y + 1);
-                            std::vector<int64_t> genomes_to_remove;
+                            std::vector<uint64_t> genomes_to_remove;
                             for( auto& r_pair : p_ndmg->unique_genome_hash_2_first_appeared_by_year[ y ] )
                             {
                                 if( ((current_time + dt) - r_pair.second) >= num_years_in_days )
@@ -906,7 +906,7 @@ namespace Kernel
                                 p_ndmg->unique_genome_hash_2_first_appeared_by_year[ y ].erase( genome_hash );
                             }
 
-                            std::vector<int64_t> barcodes_to_remove;
+                            std::vector<uint64_t> barcodes_to_remove;
                             for( auto& r_pair : p_ndmg->unique_barcode_hash_2_first_appeared_by_year[ y ] )
                             {
                                 if( ((current_time + dt) - r_pair.second) >= num_years_in_days )

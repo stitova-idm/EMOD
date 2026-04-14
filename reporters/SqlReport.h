@@ -192,7 +192,7 @@ namespace Kernel
         // --- Data Extraction methods
         // --- The following methods are used to extract data out of the EMOD objects into temporary
         // --- objects that will be used later to put the data into the database.
-        // --- The CreateXXX() methods can be overriden by subclasses so that they can create objects
+        // --- The CreateXXX() methods can be overridden by subclasses so that they can create objects
         // --- that extend the base class container.
         // --------------------------------------------------------------------------------------------
 
@@ -210,7 +210,7 @@ namespace Kernel
         // --- Add To Database
         // --- The following methods are from the algorithm in EndTimestep() where the data
         // --- is added to the database as a single transaction each time step.
-        // --- The AddXXX() methods should be overriden when adding new tables.
+        // --- The AddXXX() methods should be overridden when adding new tables.
         // ---------------------------------------------------------------------------------
 
         // This method is used to add a human to the database that is new to the database.
