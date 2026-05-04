@@ -240,7 +240,7 @@
 #define Max_Larval_Capacity_DESC_TEXT "The maximum larval capacity."
 #define Max_MSP1_Antibody_Growthrate_DESC_TEXT "Maximum increase in MSP1 antibody capacity during each asexual cycle. The higher this value, the sooner early clearances are observed and the earlier the parasite density envelope decreases."
 #define Max_Node_Population_Samples_DESC_TEXT "The maximum number of individuals to track in a node. When the population exceeds this number, the sampling rate will drop according to the value set in Individual_Sampling_Type."
-#define Mean_Egg_Hatch_Delay_DESC_TEXT "The mean delay in egg hatch time, in days, from the time of oviposition."
+#define Mean_Egg_Hatch_Delay_DESC_TEXT "The mean parameter, in days, of the exponential distribution of the time it takes eggs to hatch from the time of oviposition. Used when Egg_Hatch_Delay_Distribution is set to EXPONENTIAL_DISTRIBUTION."
 #define Mean_Sporozoites_Per_Bite_DESC_TEXT "Mean number of sporozoites per infectious mosquito bite."
 #define Memory_Usage_Halting_Threshold_Working_Set_MB_DESC_TEXT "The maximum size of working set memory before the system throws an exception and halts."
 #define Memory_Usage_Warning_Threshold_Working_Set_MB_DESC_TEXT "The maximum size of working set memory before memory usage statistics are written to the log regardless of log level."
@@ -477,7 +477,7 @@
 #define Capacity_Distribution_Number_Of_Years_DESC_TEXT "The total length of time in years for the scaling.  If the simulation goes longer than this time, the pattern will repeat.  Ideally, this value times 365 is the last value in 'Capacity_Distribution_Over_Time'."
 #define Capacity_Distribution_Over_Time_DESC_TEXT       "This allows one to scale the larval capacity over time.  The Times and Values arrays must be the same length where Times is in days and Values are a scale factor per degrees squared.  The value is multiplied times the max capacity and 'Node_Grid_Size' squared/4. Ideally, you want the last value  to equal the first value if they are one day apart.  A point will be added if not."
 
-#define VSP_Name_DESC_TEXT "Name of this species of vectors"
+#define VSP_Name_DESC_TEXT "Name of this species of vectors."
 
 #define Vector_Species_Params_DESC_TEXT "A list of JSON object where each object contains the parameters for a specific species of vectors."
 
@@ -488,21 +488,21 @@
 #define Serialized_Population_Writing_Type_DESC_TEXT "The type of serialization to perform. 'NONE' for no serialization, 'TIME' to use definition from 'Serialization_Times', and 'TIMESTEP' to use definition from 'Serialization_Time_Steps'."
 #define Serialization_Max_Humans_Per_Collection_DESC_TEXT "The maximum number of human agents saved in a collection in the serialized file.  Default is 1000.  This can be used to balance spead of reading and writing a file (including in Python) with the amount of memory used.  More people in a collection is faster, but uses more memory."
 
-#define Insecticides_DESC_TEXT                        "An Array of insecticides and their resistance modifiers"
-#define Insecticide_Species_Name_DESC_TEXT            "Name of the species of vectors, as defined in 'Vector_Species_Params'."
+#define Insecticides_DESC_TEXT                        "An Array of insecticides and their resistance modifiers."
+#define Insecticide_Species_Name_DESC_TEXT            "Name of the species of vectors this affects, as defined in 'Vector_Species_Params[X]'."
 #define Insecticide_Allele_Combinations_DESC_TEXT     "The combination of alleles that vectors must have in order to be resistant.  These alleles must be defined in 'Vector_Species_Params[X].Genes[X].Alleles' for the associated species."
-#define Insecticide_Blocking_Modifier_DESC_TEXT       "The value used to modify (multiply) the blocking effectivity of an intervention"
-#define Insecticide_Killing_Modifier_DESC_TEXT        "The value used to modify (multiply) the killing effectivity of an intervention"
-#define Insecticide_Larval_Killing_Modifier_DESC_TEXT "The value used to modify (multiply) the larval killing effectivity of an intervention"
-#define Insecticide_Repelling_Modifier_DESC_TEXT      "The value used to modify (multiply) the repelling effectivity of an intervention"
-#define Insecticide_Name_DESC_TEXT                    "Name of insecticide"
+#define Insecticide_Blocking_Modifier_DESC_TEXT       "The value used to modify (multiply) the blocking effectivity of an intervention."
+#define Insecticide_Killing_Modifier_DESC_TEXT        "The value used to modify (multiply) the killing effectivity of an intervention."
+#define Insecticide_Larval_Killing_Modifier_DESC_TEXT "The value used to modify (multiply) the larval killing effectivity of an intervention."
+#define Insecticide_Repelling_Modifier_DESC_TEXT      "The value used to modify (multiply) the repelling effectivity of an intervention."
+#define Insecticide_Name_DESC_TEXT                    "Name of insecticide."
 #define Insecticide_Resistance_DESC_TEXT              "An array of resistance modifier objects that define how to modify the efficacy of the insecticide for particular vector genomes."
 
 #define Serialization_Precision_DESC_TEXT "Default is 'REDUCED' to reduce the size of the serialized file.  'FULL' gives more floating point precision but creates larger files."
 
 #define Inset_Chart_Reporting_Include_30Day_Avg_Infection_Duration_DESC_TEXT "If true the '30-Day Avg Infection Duration' channel is included in the InsetChart.json report."
 
-#define Enable_Temperature_Dependent_Egg_Hatching_DESC_TEXT "Controls whether or not temperature has an effect on egg hatching, defined by 'Egg_Arrhenius1' and 'Egg_Arrhenius2' in 'Vector_Species_Params'."
+#define Enable_Temperature_Dependent_Egg_Hatching_DESC_TEXT "When set to true (1), the time between oviposition and hatching of eggs depends on temperature. The time is calculated using the Arrhenius equation with parameters defined by Egg_Arrhenius1 and Egg_Arrhenius2. This applies to all eggs across all species in the simulation."
 
 
 #define DM_Drug_Resistant_String_DESC_TEXT "A series of nucleotide base letters (A, C, G, T) that represent the drug resistant values at locations in the genome.  There must be one character for each location defined in 'Parasite_Genetics.Drug_Resistant_Genome_Locations'."
